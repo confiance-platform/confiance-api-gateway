@@ -56,7 +56,11 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOriginPatterns:
+              - "http://localhost:*"
+              - "https://frontend-two-wheat-xx7if4udbl.vercel.app"
+              - "https://confiance-application*.app.runonflux.io"
+              - "https://*.vercel.app"
             allowedMethods:
               - GET
               - POST
@@ -64,8 +68,13 @@ spring:
               - DELETE
               - PATCH
               - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: false
+            allowedHeaders:
+              - "*"
+            exposedHeaders:
+              - "Authorization"
+              - "Content-Type"
+            allowCredentials: true
+            maxAge: 3600
 
   redis:
     host: ${SPRING_REDIS_HOST:localhost}
