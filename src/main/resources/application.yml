@@ -25,6 +25,13 @@ spring:
           filters:
             - StripPrefix=0
 
+        - id: admin-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/admin/**
+          filters:
+            - StripPrefix=0
+
         - id: investment-service
           uri: lb://investment-service
           predicates:
