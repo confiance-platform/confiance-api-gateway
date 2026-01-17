@@ -32,10 +32,24 @@ spring:
           filters:
             - StripPrefix=0
 
+        - id: referral-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/referrals/**
+          filters:
+            - StripPrefix=0
+
         - id: investment-service
           uri: lb://investment-service
           predicates:
             - Path=/api/v1/investments/**
+          filters:
+            - StripPrefix=0
+
+        - id: recommendation-service
+          uri: lb://investment-service
+          predicates:
+            - Path=/api/v1/recommendations/**
           filters:
             - StripPrefix=0
 
@@ -53,10 +67,45 @@ spring:
           filters:
             - StripPrefix=0
 
+        - id: trades-service
+          uri: lb://portfolio-service
+          predicates:
+            - Path=/api/v1/trades/**
+          filters:
+            - StripPrefix=0
+
+        - id: holdings-service
+          uri: lb://portfolio-service
+          predicates:
+            - Path=/api/v1/holdings/**
+          filters:
+            - StripPrefix=0
+
         - id: notification-service
           uri: lb://notification-service
           predicates:
             - Path=/api/v1/notifications/**
+          filters:
+            - StripPrefix=0
+
+        - id: otp-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/otp/**
+          filters:
+            - StripPrefix=0
+
+        - id: file-upload-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/files/**
+          filters:
+            - StripPrefix=0
+
+        - id: payment-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/payments/**
           filters:
             - StripPrefix=0
 
@@ -83,11 +132,12 @@ spring:
             allowCredentials: true
             maxAge: 3600
 
-  redis:
-    host: ${SPRING_REDIS_HOST:localhost}
-    port: ${SPRING_REDIS_PORT:6379}
-    password: ${SPRING_REDIS_PASSWORD:}
-    timeout: 60000
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+      password: ${SPRING_REDIS_PASSWORD:}
+      timeout: 60000
 
 eureka:
   client:
@@ -99,8 +149,8 @@ eureka:
     prefer-ip-address: true
 
 jwt:
-  secret: confianceSecretKeyForJWTTokenGenerationAndValidation2024
-  expiration: 86400000
+  secret: ${JWT_SECRET:confianceSecretKeyForJWTTokenGenerationAndValidation2024}
+  expiration: ${JWT_EXPIRATION:86400000}
   refresh-expiration: 604800000
 
 management:
