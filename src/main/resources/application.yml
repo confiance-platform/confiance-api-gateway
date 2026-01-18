@@ -113,10 +113,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOriginPatterns:
-              - "http://localhost:*"
-              - "https://frontend-two-wheat-xx7if4udbl.vercel.app"
-              - "https://confiance-application*.app.runonflux.io"
-              - "https://*.vercel.app"
+              - "*"
             allowedMethods:
               - GET
               - POST
@@ -124,11 +121,13 @@ spring:
               - DELETE
               - PATCH
               - OPTIONS
+              - HEAD
             allowedHeaders:
               - "*"
             exposedHeaders:
               - "Authorization"
               - "Content-Type"
+              - "X-Requested-With"
             allowCredentials: true
             maxAge: 3600
 
