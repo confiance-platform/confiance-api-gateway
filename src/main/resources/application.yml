@@ -138,6 +138,20 @@ spring:
           filters:
             - RewritePath=/api/v1/version/notification(?<segment>/?.*), /api/v1/version$\{segment}
 
+        - id: auth-version
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/version/auth/**
+          filters:
+            - RewritePath=/api/v1/version/auth(?<segment>/?.*), /api/v1/version$\{segment}
+
+        - id: user-version
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/version/user/**
+          filters:
+            - RewritePath=/api/v1/version/user(?<segment>/?.*), /api/v1/version$\{segment}
+
       globalcors:
         corsConfigurations:
           '[/**]':
