@@ -109,6 +109,35 @@ spring:
           filters:
             - StripPrefix=0
 
+        # Version endpoints for each service
+        - id: investment-version
+          uri: lb://investment-service
+          predicates:
+            - Path=/api/v1/version/investment/**
+          filters:
+            - RewritePath=/api/v1/version/investment(?<segment>/?.*), /api/v1/version$\{segment}
+
+        - id: portfolio-version
+          uri: lb://portfolio-service
+          predicates:
+            - Path=/api/v1/version/portfolio/**
+          filters:
+            - RewritePath=/api/v1/version/portfolio(?<segment>/?.*), /api/v1/version$\{segment}
+
+        - id: transaction-version
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/v1/version/transaction/**
+          filters:
+            - RewritePath=/api/v1/version/transaction(?<segment>/?.*), /api/v1/version$\{segment}
+
+        - id: notification-version
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/version/notification/**
+          filters:
+            - RewritePath=/api/v1/version/notification(?<segment>/?.*), /api/v1/version$\{segment}
+
       globalcors:
         corsConfigurations:
           '[/**]':
